@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>rut.vn - Rút gọn link</title>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <v-app-bar inverted-scroll color="#fafafb" app>
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-title>
+          <span class="font-weight-bold white--text content-color">rut.vn</span>
+        </v-app-bar-title>
+        <v-spacer></v-spacer>
+        <qrscan v-if="$vuetify.breakpoint.mobile" icon-color="content-color"></qrscan>
+        <a class="black--text text-decoration-none" href="http://login.fui.vn/"><v-avatar class="ml-1" style="border: 1px solid #fff;" size="36px"><v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img></v-avatar></a>
+      </v-app-bar>
+      <v-main>
+        <v-app-bar class="ma-2" absolute color="transparent" flat>
+          <v-app-bar-nav-icon @click="drawer = !drawer" dark></v-app-bar-nav-icon>
+          <v-app-bar-title>
+            <span class="font-weight-bold white--text">rut.vn</span>
+          </v-app-bar-title>
+          <v-spacer></v-spacer>
+          <qrscan v-if="$vuetify.breakpoint.mobile" :icon-color="'white--text'">
+          </qrscan>
+          <a class="white--text text-decoration-none" href="http://login.fui.vn/"><v-avatar class="ml-1" style="border: 1px solid #fff;" size="36px"><v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img></v-avatar></a>
+        </v-app-bar>
+        <v-navigation-drawer v-model="drawer" temporary app>
+          <v-list-item> 
+            <v-list-item-avatar>
+              <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <a class="black--text text-decoration-none" href="http://login.fui.vn/"><v-list-item-title >{{(user.FirstName + ' ' + user.LastName).trim()?(user.FirstName + ' ' + user.LastName):'Username'}}</v-list-item-title></a>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-divider></v-divider>
+        </v-navigation-drawer>
+        <v-container fluid>
+          <v-row justify="center" class="pa-2">
+            <v-col class="pa-0">
+              <div class="overflow-y-auto">
+                <div class="search-header">
+                  <div class="search-landing-image-container">
+                    <div class="search-landing-image rounded" :style="`height: ${$vuetify.breakpoint.mobile&&logined?'230px':'360px'}`">
+                      <div v-if="!logined" class="d-flex justify-center align-center" style="height: 360px;">
+                        <div>
+                          <v-btn class="py-7 mx-2" style="background-color: rgba(240, 255, 255, 0.2);" outlined
+                            depressed dark>Bắt đầu</v-btn>
+                        </div>
+                        <div>
+                          <v-btn @click="login" class="py-7 mx-2" outlined depressed dark>Đăng nhập</v-btn>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="search-results-details">
+                      <div class="search-input-container">
+                        <div class="search-input-with-dropdown">
+                          <div class="left-side-wrapper">
+                            <v-text-field v-model="link" ref="shortenBox" class="text-h7 font-weight-light"
+                              placeholder="Dán link tại đây..." solo flat hide-details :dense="$vuetify.breakpoint.mobile" light></v-text-field>
+                          </div>
+                          <span class="btn-dropdown">
+                            <v-btn @click="visibleQR=true" v-show="link" class="px-6" tile depressed dark icon>
+                              <v-icon class="content-color">mdi-qrcode</v-icon>
+                              <qrcode :src="newQRCode" :url="link"></qrcode>
+                            </v-btn>
+                            <span v-show="completed">
+                              <v-btn @click.native="copyLink" v-show="link" v-clipboard:copy="link"
+                                v-clipboard:success="copyLink" class="px-6" tile depressed dark icon>
+                                <v-icon class="content-color">mdi-content-copy</v-icon>
+                              </v-btn>
+                              <v-btn @click="replay" class="px-6" tile depressed dark icon>
+                                <v-icon class="content-color">mdi-replay</v-icon>
+                              </v-btn>
+                            </span>
+                            <v-btn :loading="loading" @click="shortenLink" v-show="completed==false"
+                              :class="`btn-shorten ${$vuetify.breakpoint.mobile?'rounded-r px-4 py-6':'rounded px-7 py-7'}`" tile depressed dark>
+                              <v-icon class="mr-2" small>mdi-creation</v-icon>Rút gọn
+                            </v-btn>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container>
+          <v-row v-if="logined">
+            <v-col>
+              <dashboard/>
+            </v-col>
+          </v-row>
+          <v-row v-else>
+            <v-col>
+              <introduce/>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="/modules/qrious.min.js"></script>
+  <script src="/modules/vuex.js"></script>
+  <script src="/modules/es6-promise.auto.js"></script>
+  <script src="/modules/jquery.min.js"></script>
+  <script src="/modules/html5-qrcode.min.js"></script>
+  <script src="/modules/vue-clipboard.min.js"></script>
+  <script src="/modules/axios.min.js"></script>
+  <script type="module" src="/src/App.js"></script>
+</body>
+
+</html>

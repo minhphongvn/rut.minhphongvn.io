@@ -1,0 +1,199 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #0d0c22;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+#wrap {
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  background: #fff;
+}
+.wrap {
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  background: #fff;
+}
+
+.v-main__wrap { 
+  background: #fafafb;
+}
+
+.search-header {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.search-header .search-landing-image-container {
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  /* background-color: #f0f0f0; */
+}
+
+.search-header .search-results-details {
+  padding: 0 0px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 1;
+}
+
+.search-header .search-input-container {
+  /* max-width: 628px; */
+  width: 52%;
+  margin: 0 auto;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.search-input-with-dropdown {
+  background: #fff;
+  /* -webkit-box-shadow: 0px 8px 20px rgb(0 0 0 / 6%); */
+  /* box-shadow: 0px 10px 60px rgb(0 0 0 / 10%); */
+  border-radius: 5px;
+  height: 68px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  border: 2px solid #380036;
+}
+
+.search-input-with-dropdown .left-side-wrapper {
+  position: relative;
+  -ms-flex: 1;
+  flex: 1;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-left: 4px;
+}
+
+.search-input-with-dropdown .vertical-divider {
+  margin: 0px 4px;
+  width: 2px;
+  background: #e7e7e9;
+  height: 50%;
+}
+
+.search-input-with-dropdown .btn-dropdown {
+  position: static;
+  min-width: 84px;
+  margin-right: 4px;
+}
+
+.btn-dropdown {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.search-input-with-dropdown .search-input-form {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.search-input-with-dropdown .v-text-field--solo>.v-input__control>.v-input__slot {
+  background: #fff;
+}
+
+.v-main__wrap {
+  flex: 1 1 auto;
+  max-width: 100%;
+  position: unset;
+}
+
+.v-app-bar-title__content{
+  width: 100px!important;
+}
+
+.search-landing-image {
+  border-bottom: 2px solid #380036;
+  background-color: #0cbaba;
+  background-image: linear-gradient(40deg, #0f7777 0%,#380036 70%, #380036 75%);
+}
+
+.btn-shorten {
+  background-color: #380036;
+  background-image: linear-gradient(40deg, #332550 25%, #380036 75%);
+}
+
+.content-color {
+  background: -webkit-linear-gradient(40deg, #0f7777 0%, #380036 75%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tab-header .v-slide-group__content {
+  justify-content: center;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@media (max-width: 800px) {
+  .search-header .search-input-container {
+    max-width: 628px;
+    width: 95%;
+  }
+  .search-header .search-landing-image-container {
+    min-height: 230px!important;
+  }
+  .search-input-with-dropdown {
+    height: 50px;
+  }
+  .search-input-with-dropdown .btn-dropdown {
+    margin-right: -1px;
+  }
+  .search-landing-image {
+    border-bottom: none;
+    background-color: #0cbaba;
+    background-image: linear-gradient(40deg, #0f7777 0%, #0f7777 0%, #380036 100%);
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 0px linear-gradient(40deg, #0f7777 0%, #0f7777 0%, #380036 100%);;
+  }
+}
